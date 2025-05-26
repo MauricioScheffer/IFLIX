@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFLIX</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="IFSulFLix.svg" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Lateral Esquerda -->
+        <aside class="barra-lateral">
+            <div class="logo">I<span>FLIX</span></div>
+
+            <div class="movie-search">
+                <img class="lupa" src="search.png" alt="">
+                <input class="barra-pesquisa" type="text" id="movieInput" placeholder="Digite o nome de um filme">
+            </div>
+
+            <div class="menu">
+                <p class="titulo-barraLateral">MENU</p>
+                <a href="#"><img src="claquete.png" alt="" class="icones">Início</a>
+                <a href="#"><img src="loginKey.png" alt="" class="icones">Login</a>
+                <a href="#"><img src="cadastro.png" alt="" class="icones">Cadastrar</a>
+            </div>
+
+            <div class="generos" id="genreNav">
+                <p class="titulo-barraLateral">GÊNEROS</p>
+                <ul id="genreList"></ul>
+            </div>
+        </aside>
+
+        <!-- Conteúdo principal -->
+        <main class="container-meio">
+            <h2 id="sectionTitle">Filmes em destaque</h2>
+            <div class="movie-posters" id="posterContainer"></div>
+
+            <h1 class="titulo-genero">Resultados da Busca</h1>
+            <div class="movie-posters" id="posterContainer"></div>
+        </main>
+
+        <!-- Lateral Direita -->
+        <aside class="filtro-direita">
+            <h3>ANO DE LANÇAMENTO</h3>
+            <div class="buttons">
+                <button>2025</button>
+                <button>2024</button>
+                <button>2023</button>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
