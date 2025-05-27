@@ -27,6 +27,8 @@ html, body {
   font-size: 34px;
   font-weight: bold;
   text-align: center;
+  text-decoration: none;
+    color: #f3f3f3;
 }
 
 .logo span {
@@ -171,6 +173,52 @@ html, body {
 }
 
 .movie-card {
+  display: inline-block;
+  margin: 8px;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  width: 160px;
+}
+
+.movie-card img {
+  width: 100%;
+  border-radius: 10px;
+  transition: transform 0.2s;
+}
+
+.movie-card:hover img {
+  transform: scale(1.05);
+}
+
+.movie-card h3{
+  font-size: 14px;
+  margin-top: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Loadingzin */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ccc;
+  border-top: 5px solid #ff3d00;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 40px auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+/* .movie-card {
   background: white;
   border-radius: 8px;
   overflow: hidden;
@@ -186,9 +234,9 @@ html, body {
   /* height: 225px;
   object-fit: cover;
   display: block; */
-}
+/* } */
 
-.movie-card .title {
+/* .movie-card .title {
   font-weight: bold;
   margin: 5px;
 }
@@ -207,7 +255,7 @@ html, body {
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 12px;
-}
+}  */
 
 .pagination {
   display: flex;
@@ -246,3 +294,4 @@ html, body {
   background: #ddd;
   cursor: pointer;
 }
+

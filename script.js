@@ -14,6 +14,36 @@ let currentQuery = "";
 let currentFilter = "popular";
 let currentMode = "default"; // "default", "search", "genre"
 
+function fetchMovies() {
+  posterContainer.innerHTML = ""; // Limpa o container
+
+  fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&page=1`)
+    .then(res => res.json())
+    .then(data => {
+      const movies = data.results;
+
+      movies.forEach(movie => {
+        const movieElement = document.createElement("a");
+        movieElement.href = `filme.html?id=${movie.id}`;
+        movieElement.classList.add("card-filme"); // Você pode estilizar isso no CSS
+
+        movieElement.innerHTML = `
+          <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
+          <p>${movie.title}</p>
+        `;
+
+        posterContainer.appendChild(movieElement);
+      });
+    })
+    .catch(err => {
+      console.error("Erro ao buscar filmes:", err);
+    });
+}
+
+// Chamada ao carregar a página
+fetchMovies();
+
+
 // Buscar gêneros e preencher o menu
 fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=pt-BR`)
   .then(res => res.json())
@@ -65,7 +95,7 @@ input.addEventListener("input", () => {
   carregarFilmesPesquisa(query, currentPage);
 });
 
-// Carrega filmes aleatórios ao entrar
+// Carrega filmes iniciais
 window.addEventListener("DOMContentLoaded", () => {
   carregarFilmes("popular", "Filmes em destaque");
 });
@@ -88,13 +118,13 @@ document.querySelectorAll(".filtro-btn").forEach(btn => {
   });
 });
 
-// Função para carregar filmes por tipo (popular, now_playing)
+// Função para carregar filmes por tipo
 function carregarFilmes(tipo, titulo) {
   fetch(`https://api.themoviedb.org/3/movie/${tipo}?api_key=${apiKey}&language=pt-BR&page=${currentPage}`)
     .then(res => res.json())
     .then(data => {
       sectionTitle.textContent = titulo;
-      renderizarFilmes(data);
+      renderizarFilmes(data.results);
       totalPages = data.total_pages;
       renderizarPaginacao();
     });
@@ -105,7 +135,7 @@ function carregarFilmesPesquisa(query, page) {
   fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}&language=pt-BR&page=${page}`)
     .then(res => res.json())
     .then(data => {
-      renderizarFilmes(data);
+      renderizarFilmes(data.results);
       totalPages = data.total_pages;
       renderizarPaginacao();
     });
@@ -116,38 +146,69 @@ function carregarFilmesPorGenero(genreId, page) {
   fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreId}&language=pt-BR&page=${page}`)
     .then(res => res.json())
     .then(data => {
-      renderizarFilmes(data);
+      renderizarFilmes(data.results);
       totalPages = data.total_pages;
       renderizarPaginacao();
     });
 }
 
-// Função para criar os cards
-function createMovieCard(movie) {
-  const div = document.createElement("div");
-  div.className = "movie-card";
+// Renderiza os filmes na tela com links
+function renderizarFilmes(listaDeFilmes) {
+  posterContainer.innerHTML = ""; //limpa
+  posterContainer.style.opacity = "0";//ocultando né
 
-  const img = document.createElement("img");
-  img.src = `https://image.tmdb.org/t/p/w300${movie.poster_path}`;
-  img.alt = movie.title;
+  const spinner = document.getElementById("loadingSpinner");
+  spinner.style.display = "block";
 
-  const title = document.createElement("p");
-  title.className = "title";
-  title.textContent = movie.title;
 
-  div.appendChild(img);
-  div.appendChild(title);
-  posterContainer.appendChild(div);
-}
+  const moviesToShow = listaDeFilmes.filter(movie => movie.poster_path);
+  let imagesLoaded = 0;
 
-// Renderiza os filmes na tela
-function renderizarFilmes(data) {
-  posterContainer.innerHTML = "";
-  data.results.forEach(movie => {
-    if (movie.poster_path) {
-      createMovieCard(movie);
-    }
+  // estiloso
+  moviesToShow.forEach(movie => {
+    const img = new Image();
+    img.src = `https://image.tmdb.org/t/p/w300${movie.poster_path}`;
+    img.onload = () => {
+      imagesLoaded++;
+      if (imagesLoaded === moviesToShow.length) {
+        // spinner some
+        spinner.style.display = "none";
+        // exibe os cardass
+        moviesToShow.forEach(createMovieCard);
+        posterContainer.style.opacity = "1";
+      }
+    };
   });
+
+  function createMovieCard(movie) {
+    const card = document.createElement("a");
+    card.href = `filme.html?id=${movie.id}`;
+    card.classList.add("movie-card");
+  
+    card.innerHTML = `
+      <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
+      <div class="title">${movie.title}</div>
+    `;
+  
+    posterContainer.appendChild(card);
+  }
+  
+
+  // Esse mostrava mas atrapalhava tudin
+  // listaDeFilmes.forEach(filme => {
+  //   if (!filme.poster_path) return;
+
+  //   const card = document.createElement("a");
+  //   card.href = `filme.html?id=${filme.id}`;
+  //   card.classList.add("movie-card");
+
+  //   card.innerHTML = `
+  //     <img src="https://image.tmdb.org/t/p/w300${filme.poster_path}" alt="${filme.title}">
+  //     <div class="title">${filme.title}</div>
+  //   `;
+
+  //   posterContainer.appendChild(card);
+  // });
 }
 
 // Renderiza a paginação
@@ -160,27 +221,6 @@ function renderizarPaginacao() {
 
   paginationTop.appendChild(paginacaoTop);
   paginationBottom.appendChild(paginacaoBottom);
-}
-
-// Limpa as áreas de paginação
-function limparPaginacao() {
-  paginationTop.innerHTML = "";
-  paginationBottom.innerHTML = "";
-}
-
-// Muda de página conforme o modo atual
-function mudarPagina(novaPagina) {
-  if (novaPagina < 1 || novaPagina > totalPages) return;
-
-  currentPage = novaPagina;
-
-  if (currentMode === "default") {
-    carregarFilmes(currentFilter, sectionTitle.textContent);
-  } else if (currentMode === "search") {
-    carregarFilmesPesquisa(currentQuery, currentPage);
-  } else if (currentMode === "genre") {
-    carregarFilmesPorGenero(activeGenre, currentPage);
-  }
 }
 
 // Cria os botões de paginação
@@ -208,23 +248,23 @@ function criarPaginacao() {
   return paginacao;
 }
 
-const movies = [
-  { id: 12345, title: "Filme A", poster_path: "/abc.jpg" },
-  { id: 67890, title: "Filme B", poster_path: "/def.jpg" }
-];
+// Limpa as áreas de paginação
+function limparPaginacao() {
+  paginationTop.innerHTML = "";
+  paginationBottom.innerHTML = "";
+}
 
-// Container onde os cards vão
-const container = document.querySelector(".movie-posters");
+// Muda de página conforme o modo atual
+function mudarPagina(novaPagina) {
+  if (novaPagina < 1 || novaPagina > totalPages) return;
 
-movies.forEach(movie => {
-  const a = document.createElement("a");
-  a.href = `filme.html?id=${movie.id}`;
-  a.classList.add("movie-card");
-  
-  a.innerHTML = `
-    <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="${movie.title}">
-    <div class="title">${movie.title}</div>
-  `;
-  
-  container.appendChild(a);
-});
+  currentPage = novaPagina;
+
+  if (currentMode === "default") {
+    carregarFilmes(currentFilter, sectionTitle.textContent);
+  } else if (currentMode === "search") {
+    carregarFilmesPesquisa(currentQuery, currentPage);
+  } else if (currentMode === "genre") {
+    carregarFilmesPorGenero(activeGenre, currentPage);
+  }
+}
