@@ -36,10 +36,27 @@
         <!-- Conteúdo principal -->
         <main class="container-meio">
             <h2 id="sectionTitle">Filmes em destaque</h2>
-            <div class="movie-posters" id="posterContainer"></div>
+            <div class="filtros">
+                <button class="filtro-btn" data-filter="popular">Mais assistidos</button>
+                <button class="filtro-btn" data-filter="now_playing">Novos</button>
+            </div>
 
-            <h1 class="titulo-genero">Resultados da Busca</h1>
-            <div class="movie-posters" id="posterContainer"></div>
+
+            <!-- Paginação acima -->
+            <div class="pagination" id="paginationTop"></div>
+
+            <!-- Área dos filmes -->
+            <div class="movie-posters" id="posterContainer">
+                <h1 class="titulo-genero">Resultados da Busca</h1>
+                <a href="filme.html?id=12345"> <!-- 12345 é o ID do filme -->
+                    <!-- conteúdo do card -->
+                </a>
+            </div>
+
+            <!-- Paginação abaixo -->
+            <div class="pagination" id="paginationBottom"></div>
+
+
         </main>
 
         <!-- Lateral Direita -->
