@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IFLIX</title>
+  <link rel="stylesheet" href="teste.css" />
+  <link rel="shortcut icon" href="IFSulFLix.svg" type="image/x-icon" />
+</head>
+
+<body>
+  <div class="container">
+    <!-- Lateral Esquerda -->
+    <aside class="barra-lateral">
+      <div class="logo"><a href="index.html" class="logo">I<span>FLIX</span></a></div>
+
+      <div class="movie-search">
+        <img class="lupa" src="search.png" alt="" />
+        <input class="barra-pesquisa" type="text" id="movieInput" placeholder="Digite o nome de um filme" />
+      </div>
+
+      <div class="menu">
+        <p class="titulo-barraLateral">MENU</p>
+        <a href="#"><img src="claquete.png" alt="" class="icones" />Início</a>
+        <a href="#"><img src="loginKey.png" alt="" class="icones" />Login</a>
+        <a href="#"><img src="cadastro.png" alt="" class="icones" />Cadastrar</a>
+      </div>
+
+      <div class="generos" id="genreNav">
+        <p class="titulo-barraLateral">GÊNEROS</p>
+        <ul id="genreList"></ul>
+      </div>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="container-meio">
+      <h2 id="sectionTitle">Filmes em destaque</h2>
+      <div class="filtros">
+        <button class="filtro-btn" data-filter="popular">Mais assistidos</button>
+        <button class="filtro-btn" data-filter="now_playing">Novos</button>
+      </div>
+
+      <!-- Paginação acima -->
+      <div class="pagination" id="paginationTop"></div>
+
+      <!-- Área dos filmes -->
+      <div class="movie-posters" id="posterContainer">
+        <h1 class="titulo-genero">Resultados da Busca</h1>
+        <!-- Os cards serão inseridos dinamicamente aqui -->
+      </div>
+
+      <!-- Paginação abaixo -->
+      <div class="pagination" id="paginationBottom"></div>
+    </main>
+
+    <!-- Lateral Direita -->
+    <aside class="filtro-direita">
+      <h3>ANO DE LANÇAMENTO</h3>
+      <div class="buttons">
+        <button>2025</button>
+        <button>2024</button>
+        <button>2023</button>
+      </div>
+    </aside>
+  </div>
+
+  <script >
+    const apiKey = "1e80412998daf360b634f59f4944b940";
+    const posterContainer = document.getElementById("posterContainer");
+
+    // Função que renderiza os cards com link para filme.html?id=...
+    function exibirFilmes(filmes) {
+      posterContainer.innerHTML = "";
+
+      filmes.forEach(filme => {
+        const link = document.createElement("a");
+        link.href = `filme.html?id=${filme.id}`;
+        link.classList.add("filme-card");
+
+        link.innerHTML = `
+          <img src="https://image.tmdb.org/t/p/w300${filme.poster_path}" alt="${filme.title}" />
+          <h3>${filme.title}</h3>
+        `;
+
+        posterContainer.appendChild(link);
+      });
+    }
+
+    // Carrega filmes populares ao abrir a página
+    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&page=1`)
+      .then(res => res.json())
+      .then(data => {
+        exibirFilmes(data.results);
+      });
+  </script>
+
+  <style>
+   
+  </style>
+</body>
+
+</html>

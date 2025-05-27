@@ -1,108 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Detalhes do Filme</title>
-  
-</head>
-
-
-<body>
-  <div class="container">
-    <aside class="barra-lateral">
-      <div class="logo"><a href="index.html" class="logo">I<span>FLIX</span></a></div>
-
-      <div class="movie-search">
-        <!-- <img class="lupa" src="search" alt="Buscar" /> -->
-        <input class="barra-pesquisa" type="text" id="movieInput" placeholder="Digite o nome de um filme" />
-      </div>
-
-      <div class="menu">
-        <p class="titulo-barraLateral">MENU</p>
-        <a href="index.html"><img src="claquete.png" alt="" class="icones" />Início</a>
-        <a href="#"><img src="loginKey.png" alt="" class="icones" />Login</a>
-        <a href="#"><img src="cadastro.png" alt="" class="icones" />Cadastrar</a>
-      </div>
-
-      <div class="generos" id="genreNav">
-        <p class="titulo-barraLateral">GÊNEROS</p>
-        <ul id="genreList"></ul>
-      </div>
-    </aside>
-
-    <main class="container-meio" id="movieDetailsContainer">
-      <h2 id="movieTitle">Carregando...</h2>
-      <div id="movieDetails" style="display:flex; gap: 20px; margin-top: 20px;">
-
-        <img id="moviePoster" src="" alt="" style="width: 300px; border-radius: 10px;" />
-
-        <div id="movieInfo" style="max-width: 600px;">
-          <p><strong>Descrição:</strong> <span id="movieOverview"></span></p>
-          <p><strong>Data de lançamento:</strong> <span id="movieReleaseDate"></span></p>
-          <p><strong>Nota média:</strong> <span id="movieRating"></span></p>
-          <p><strong>Gêneros:</strong> <span id="movieGenres"></span></p>
-          <p><strong>Duração:</strong> <span id="movieDuration"></span> minutos</p>
-        </div>
-
-      </div>
-    </main>
-  </div>
-
-  <script>
-const params = new URLSearchParams(window.location.search);
-const movieId = params.get("id");
-
-if (!movieId) {
-  alert("Nenhum filme selecionado.");
-  window.location.href = "index.html";
-}
-
-fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=1e80412998daf360b634f59f4944b940&language=pt-BR`)
-  .then(res => res.json())
-  .then(movie => {
-    // fundo
-    if(movie.backdrop_path){
-      document.body.style.backgroundImage = `url('https://image.tmdb.org/t/p/original${movie.backdrop_path}')`;
-      document.body.style.backgroundSize = 'cover';
-      document.body.style.backgroundPosition = 'center';
-      document.body.style.backgroundRepeat = 'no-repeat';
-      document.body.style.backdropFilter = 'blur(4px)';
-
-    }
-    document.getElementById("movieTitle").textContent = movie.title;
-    document.getElementById("moviePoster").src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-    document.getElementById("movieOverview").textContent = movie.overview;
-    document.getElementById("movieReleaseDate").textContent = movie.release_date;
-    document.getElementById("movieRating").textContent = movie.vote_average;
-    document.getElementById("movieDuration").textContent = movie.runtime;
-
-    
-
-    const genres = movie.genres.map(g => g.name).join(", ");
-    document.getElementById("movieGenres").textContent = genres;
-  });
-
-  </script>
-  <style>
-    /* FIlme Card */
-.filme-card {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    margin: 10px;
-    width: 200px;
-    transition: transform 0.2s ease;
-  }
-  
-.filme-card:hover {
-    transform: scale(1.05);
-}
-
-#movie-title{
-    
-}
 html, body {
     margin: 0;
     padding: 0;
@@ -132,8 +27,8 @@ html, body {
     font-size: 34px;
     font-weight: bold;
     text-align: center;
-    color: #f3f3f3;
     text-decoration: none;
+    color: #f3f3f3;
   }
   
   .logo span {
@@ -261,13 +156,11 @@ html, body {
   }
   
   .container-meio {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.7); /* fundo escuro translúcido */
-  color: white; /* texto claro para contraste */
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #f3f3f3;
   }
-
   
   .titulo-genero {
     margin-bottom: 20px;
@@ -356,7 +249,3 @@ html, body {
     cursor: pointer;
   }
   
-  </style>
-</body>
-
-</html>
