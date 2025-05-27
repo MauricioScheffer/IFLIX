@@ -4,7 +4,15 @@ const genreList = document.getElementById("genreList");
 const sectionTitle = document.getElementById("sectionTitle");
 const input = document.getElementById("movieInput");
 
+const paginationTop = document.getElementById("paginationTop");
+const paginationBottom = document.getElementById("paginationBottom");
+
 let activeGenre = null;
+let currentPage = 1;
+let totalPages = 1;
+let currentQuery = "";
+let currentFilter = "popular";
+let currentMode = "default"; // "default", "search", "genre"
 
 // Buscar gêneros e preencher o menu
 fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=pt-BR`)
@@ -24,24 +32,15 @@ genreList.addEventListener("click", (e) => {
     const genreId = e.target.dataset.id;
     const genreName = e.target.textContent;
 
-    // Marca categoria ativa
     document.querySelectorAll("#genreList li").forEach(li => li.classList.remove("active"));
     e.target.classList.add("active");
     activeGenre = genreId;
-
     sectionTitle.textContent = `Categoria: ${genreName}`;
-    input.value = ""; // limpa pesquisa
+    input.value = "";
+    currentPage = 1;
+    currentMode = "genre";
 
-    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreId}&language=pt-BR`)
-      .then(res => res.json())
-      .then(data => {
-        posterContainer.innerHTML = "";
-        data.results.slice(0, 12).forEach(movie => {
-          if (movie.poster_path) {
-            createMovieCard(movie);
-          }
-        });
-      });
+    carregarFilmesPorGenero(genreId, currentPage);
   }
 });
 
@@ -52,26 +51,78 @@ input.addEventListener("input", () => {
   if (query.length < 2) {
     posterContainer.innerHTML = "";
     sectionTitle.textContent = "Filmes em destaque";
-    // limpa categoria ativa visualmente
     document.querySelectorAll("#genreList li").forEach(li => li.classList.remove("active"));
     activeGenre = null;
+    currentMode = "default";
+    limparPaginacao();
     return;
   }
 
-  fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}&language=pt-BR`)
-    .then(res => res.json())
-    .then(data => {
-      sectionTitle.textContent = `Resultados para: "${query}"`;
-      posterContainer.innerHTML = "";
-      data.results.slice(0, 12).forEach(movie => {
-        if (movie.poster_path) {
-          createMovieCard(movie);
-        }
-      });
-    });
+  currentQuery = query;
+  currentPage = 1;
+  currentMode = "search";
+  sectionTitle.textContent = `Resultados para: "${query}"`;
+  carregarFilmesPesquisa(query, currentPage);
 });
 
-// Função utilitária para criar card de filme
+// Carrega filmes aleatórios ao entrar
+window.addEventListener("DOMContentLoaded", () => {
+  carregarFilmes("popular", "Filmes em destaque");
+});
+
+// Filtros: Mais assistidos e Novos
+document.querySelectorAll(".filtro-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const filtro = btn.dataset.filter;
+    const titulo = filtro === "popular" ? "Mais assistidos" : "Lançamentos recentes";
+
+    input.value = "";
+    sectionTitle.textContent = titulo;
+    document.querySelectorAll("#genreList li").forEach(li => li.classList.remove("active"));
+    activeGenre = null;
+    currentPage = 1;
+    currentFilter = filtro;
+    currentMode = "default";
+
+    carregarFilmes(filtro, titulo);
+  });
+});
+
+// Função para carregar filmes por tipo (popular, now_playing)
+function carregarFilmes(tipo, titulo) {
+  fetch(`https://api.themoviedb.org/3/movie/${tipo}?api_key=${apiKey}&language=pt-BR&page=${currentPage}`)
+    .then(res => res.json())
+    .then(data => {
+      sectionTitle.textContent = titulo;
+      renderizarFilmes(data);
+      totalPages = data.total_pages;
+      renderizarPaginacao();
+    });
+}
+
+// Função para carregar filmes por pesquisa
+function carregarFilmesPesquisa(query, page) {
+  fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}&language=pt-BR&page=${page}`)
+    .then(res => res.json())
+    .then(data => {
+      renderizarFilmes(data);
+      totalPages = data.total_pages;
+      renderizarPaginacao();
+    });
+}
+
+// Função para carregar filmes por gênero
+function carregarFilmesPorGenero(genreId, page) {
+  fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreId}&language=pt-BR&page=${page}`)
+    .then(res => res.json())
+    .then(data => {
+      renderizarFilmes(data);
+      totalPages = data.total_pages;
+      renderizarPaginacao();
+    });
+}
+
+// Função para criar os cards
 function createMovieCard(movie) {
   const div = document.createElement("div");
   div.className = "movie-card";
@@ -88,3 +139,92 @@ function createMovieCard(movie) {
   div.appendChild(title);
   posterContainer.appendChild(div);
 }
+
+// Renderiza os filmes na tela
+function renderizarFilmes(data) {
+  posterContainer.innerHTML = "";
+  data.results.forEach(movie => {
+    if (movie.poster_path) {
+      createMovieCard(movie);
+    }
+  });
+}
+
+// Renderiza a paginação
+function renderizarPaginacao() {
+  paginationTop.innerHTML = "";
+  paginationBottom.innerHTML = "";
+
+  const paginacaoTop = criarPaginacao();
+  const paginacaoBottom = criarPaginacao();
+
+  paginationTop.appendChild(paginacaoTop);
+  paginationBottom.appendChild(paginacaoBottom);
+}
+
+// Limpa as áreas de paginação
+function limparPaginacao() {
+  paginationTop.innerHTML = "";
+  paginationBottom.innerHTML = "";
+}
+
+// Muda de página conforme o modo atual
+function mudarPagina(novaPagina) {
+  if (novaPagina < 1 || novaPagina > totalPages) return;
+
+  currentPage = novaPagina;
+
+  if (currentMode === "default") {
+    carregarFilmes(currentFilter, sectionTitle.textContent);
+  } else if (currentMode === "search") {
+    carregarFilmesPesquisa(currentQuery, currentPage);
+  } else if (currentMode === "genre") {
+    carregarFilmesPorGenero(activeGenre, currentPage);
+  }
+}
+
+// Cria os botões de paginação
+function criarPaginacao() {
+  const paginacao = document.createElement("div");
+  paginacao.className = "pagination-buttons";
+
+  const anterior = document.createElement("button");
+  anterior.textContent = "Anterior";
+  anterior.disabled = currentPage === 1;
+  anterior.addEventListener("click", () => mudarPagina(currentPage - 1));
+
+  const proximo = document.createElement("button");
+  proximo.textContent = "Próxima";
+  proximo.disabled = currentPage >= totalPages;
+  proximo.addEventListener("click", () => mudarPagina(currentPage + 1));
+
+  const paginaAtual = document.createElement("span");
+  paginaAtual.textContent = `Página ${currentPage} de ${totalPages}`;
+
+  paginacao.appendChild(anterior);
+  paginacao.appendChild(paginaAtual);
+  paginacao.appendChild(proximo);
+
+  return paginacao;
+}
+
+const movies = [
+  { id: 12345, title: "Filme A", poster_path: "/abc.jpg" },
+  { id: 67890, title: "Filme B", poster_path: "/def.jpg" }
+];
+
+// Container onde os cards vão
+const container = document.querySelector(".movie-posters");
+
+movies.forEach(movie => {
+  const a = document.createElement("a");
+  a.href = `filme.html?id=${movie.id}`;
+  a.classList.add("movie-card");
+  
+  a.innerHTML = `
+    <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="${movie.title}">
+    <div class="title">${movie.title}</div>
+  `;
+  
+  container.appendChild(a);
+});

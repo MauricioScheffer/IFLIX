@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Detalhes do Filme</title>
+  <style>
+    /* Seu CSS original da barra lateral e layout */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: #f3f3f3;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .barra-lateral {
+      width: 250px;
+      background-color: #343C48;
+      color: white;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .logo {
+      font-size: 34px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .logo span {
+      background-image: linear-gradient(to right, red, orange, yellow);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .movie-search {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      background: #272D36;
+      padding: 5px;
+      border-radius: 5px;
+    }
+
+    .movie-search img {
+      width: 20px;
+      margin-right: 5px;
+    }
+
+    .barra-pesquisa {
+      flex-grow: 1;
+      border: none;
+      outline: none;
+      padding: 5px;
+      background-color: #272D36;
+      color: #f3f3f3;
+    }
+
+    .menu a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin: 7px 0;
+      font-size: 16px;
+      background-color: #2E353F;
+      padding: 7px;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    .menu a:hover {
+      background-color: #ff6a00;
+      color: black;
+    }
+
+    /* Conteúdo principal igual seu .container-meio */
+    .container-meio {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 40px;
+      background-color: #f3f3f3;
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    /* Poster do filme */
+    .poster {
+      width: 300px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(255, 106, 0, 0.8);
+      flex-shrink: 0;
+    }
+
+    /* Info do filme */
+    .info-filme {
+      flex: 1;
+      color: #333;
+    }
+
+    .info-filme h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #ff6a00;
+      font-weight: 700;
+    }
+
+    .info-filme p.sinopse {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .info-filme .detalhes {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .info-filme .detalhes span {
+      display: inline-block;
+      margin-right: 20px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="barra-lateral">
+      <div class="logo">I<span>FLIX</span></div>
+
+      <div class="movie-search">
+        <img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="Buscar" />
+        <input type="text" id="movieSearch" class="barra-pesquisa" placeholder="Buscar filmes..." />
+      </div>
+
+      <nav class="menu">
+        <a href="index.html">Início</a>
+        <a href="#">Login</a>
+        <a href="#">Cadastrar</a>
+      </nav>
+    </aside>
+
+    <main class="container-meio">
+      <img src="" alt="Poster do Filme" class="poster" id="moviePoster" />
+      <div class="info-filme" id="movieInfo">
+        <h1 id="movieTitle">Carregando...</h1>
+        <p class="sinopse" id="movieOverview">Aguarde enquanto buscamos as informações do filme.</p>
+        <div class="detalhes" id="movieDetails"></div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const apiKey = "1e80412998daf360b634f59f4944b940";
+    const moviePoster = document.getElementById("moviePoster");
+    const movieTitle = document.getElementById("movieTitle");
+    const movieOverview = document.getElementById("movieOverview");
+    const movieDetails = document.getElementById("movieDetails");
+    const movieSearchInput = document.getElementById("movieSearch");
+
+    function getMovieIdFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("id");
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return "Desconhecido";
+      const d = new Date(dateStr);
+      return d.toLocaleDateString("pt-BR");
+    }
+
+    async function carregarFilme(id) {
+      if (!id) {
+        movieTitle.textContent = "ID do filme não fornecido.";
+        movieOverview.textContent = "";
+        moviePoster.src = "";
+        movieDetails.innerHTML = "";
+        return;
+      }
+      try {
+        const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=pt-BR`);
+        if (!response.ok) throw new Error("Filme não encontrado");
+        const data = await response.json();
+
+        movieTitle.textContent = data.title || "Título desconhecido";
+        movieOverview.textContent = data.overview || "Sem descrição disponível.";
+        moviePoster.src = data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : "";
+        moviePoster.alt = data.title || "Poster do filme";
+
+        const generos = data.genres.map(g => g.name).join(", ") || "Desconhecido";
+        const lancamento = formatDate(data.release_date);
+        const nota = data.vote_average ? data.vote_average.toFixed(1) : "N/A";
+        const duracao = data.runtime ? `${data.runtime} minutos` : "Desconhecida";
+
+        movieDetails.innerHTML = `
+          <span><strong>Lançamento:</strong> ${lancamento}</span>
+          <span><strong>Duração:</strong> ${duracao}</span>
+          <span><strong>Gêneros:</strong> ${generos}</span>
+          <span><strong>Avaliação:</strong> ${nota} / 10</span>
+        `;
+      } catch (error) {
+        movieTitle.textContent = "Erro ao carregar o filme.";
+        movieOverview.textContent = error.message;
+        moviePoster.src = "";
+        movieDetails.innerHTML = "";
+      }
+    }
+
+    // Busca simples que redireciona para index.html?search=...
+    movieSearchInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const query = movieSearchInput.value.trim();
+        if (query.length > 1) {
+          window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+        }
+      }
+    });
+
+    // Carrega o filme ao abrir a página
+    const movieId = getMovieIdFromURL();
+    carregarFilme(movieId);
+  </script>
+</body>
+</html>

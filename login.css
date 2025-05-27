@@ -1,0 +1,142 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    border: none;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f3f3f3;
+    font-family: Arial, sans-serif;
+}
+/* body{
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+} */
+
+.btn {
+    display: inline-block;
+    padding: 0.6rem 2rem;
+    font-weight: 500;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all 300ms ease;
+    font-size: 0.9rem;
+    background: hsl(0, 95%, 65%);
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+header{
+    background-color: #343C48;
+    width: 100%;
+    padding: 8px;
+}
+
+.link{
+    text-align: center;
+}
+
+.logo {
+    color: #f3f3f3;
+  font-size: 34px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.logo span {
+  background-image: linear-gradient(to right, red, orange, yellow);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2.4rem;
+}
+
+main .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.box-input {
+    width: 100%;
+    max-width: 500px;
+    padding: 90px;
+    background: hsl(252, 30%, 100%);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.box-input h2 {
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.box-input .caixas input {
+    display: block;
+    width: 100%;
+    margin: 16px 0;
+    padding: 15px 20px;
+    border-radius: 10px;
+    background: hsl(252, 100%, 90%);
+    border: 1px solid black;
+}
+
+/* main{
+    flex: 1;
+}
+
+.container{
+    display: flex;
+    background-color: aqua;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.caixa-input input{
+    outline: none;
+    padding: 8px;
+    background-color: #f3f3f3;
+} */
+
+footer{
+    background-color: #343C48;
+    padding: 10px 0;
+    width: 100%;
+}
+
+footer .link{
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
