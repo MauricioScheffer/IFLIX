@@ -14,6 +14,28 @@ let currentQuery = "";
 let currentFilter = "popular";
 let currentMode = "default"; // "default", "search", "genre"
 
+// recebe as categorias do filme.html e cadastro.html
+window.addEventListener("DOMContentLoaded", () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const generoId = urlParams.get("genero");
+  const generoNome = urlParams.get("nome");
+
+  if (generoId && generoNome) {
+    // Modo gênero
+    activeGenre = generoId;
+    currentMode = "genre";
+    currentPage = 1;
+    sectionTitle.textContent = `Categoria: ${generoNome}`;
+    carregarFilmesPorGenero(generoId, currentPage);
+  } else {
+    // Modo padrão
+    carregarFilmes("popular", "Filmes em destaque");
+  }
+});
+
+
+
+
 function fetchMovies() {
   posterContainer.innerHTML = ""; // Limpa o container
 
