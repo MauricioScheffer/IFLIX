@@ -1,0 +1,271 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    border: none;
+}
+
+body {
+    background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1001%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='rgba(230%2c 25%2c 25%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c621.649C113.342%2c603.155%2c203.835%2c529.574%2c299.667%2c466.291C394.245%2c403.837%2c500.562%2c352.715%2c556.518%2c254.153C614.871%2c151.37%2c619.785%2c29.716%2c614.558%2c-88.36C608.879%2c-216.639%2c623.579%2c-372.594%2c525.124%2c-455.023C424.919%2c-538.917%2c269.998%2c-457.102%2c142.092%2c-483.92C28.831%2c-507.667%2c-64.735%2c-630.984%2c-176.822%2c-602.199C-288.639%2c-573.484%2c-326.761%2c-435.738%2c-398.312%2c-345.14C-466.069%2c-259.345%2c-548.911%2c-187.119%2c-585.884%2c-84.237C-628.65%2c34.765%2c-664.248%2c165.208%2c-624.903%2c285.384C-584.01%2c410.289%2c-485.615%2c513.262%2c-369.878%2c575.541C-258.205%2c635.633%2c-125.16%2c642.071%2c0%2c621.649' fill='%23b81414'%3e%3c/path%3e%3cpath d='M1440 997.543C1528.486 1013.792 1636.257 1029.514 1702.893 969.07 1770.647 907.612 1734.792 794.21 1760.837 706.521 1782.111 634.894 1836.342 576.806 1841.541 502.267 1847.517 416.595 1842.002 324.758 1792.353 254.684 1741.006 182.215 1657.028 134.342 1569.635 118.505 1486.104 103.368 1407.938 149.781 1325.511 170.086 1238.53 191.513 1120.201 165.611 1071.969 241.099 1021.911 319.446 1106.002 419.15 1106.976 512.118 1107.745 585.508 1053.484 656.246 1077.048 725.754 1101.186 796.958 1172.427 837.643 1232.608 882.708 1297.167 931.052 1360.672 982.976 1440 997.543' fill='%23eb4747'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1001'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+    background-size: cover;
+    animation: colors 15s ease-in-out infinite;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: "Poppins", sans-serif;
+
+}
+@keyframes colors {
+    0%{background-position: 0% 50%;}
+    50%{background-position: 100% 50%;}
+    100%{background-position: 0% 50%;}
+}
+
+
+/* body{
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+} */
+
+.btn {
+    display: inline-block;
+    padding: 0.6rem 2rem;
+    font-weight: 500;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all 300ms ease;
+    font-size: 0.9rem;
+    background: hsl(0, 95%, 65%);
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+header{
+    background-color: #343C48;
+    width: 100%;
+    padding: 8px;
+}
+
+.link{
+    text-align: center;
+}
+
+.logo {
+  font-size: 34px;
+font-family: "Exo 2", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+  text-align: center;
+  text-decoration: none;
+  color: #f3f3f3;
+}
+
+/* Exo2 
+.logo {
+  font-family: "Exo 2", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}*/
+
+/* Orbitron 
+.orbitron-<uniquifier> {
+  font-family: "Orbitron", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}*/
+
+/* anton 
+.anton-regular {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+*/
+/* Audio Wide */
+/* .logo {
+  font-family: "Audiowide", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+} */
+
+
+.logo span {
+  background-image: radial-gradient(rgb(250, 92, 92), rgb(255, 44, 44), red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2.4rem;
+}
+
+main .containerCad {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.containerCad .dento {
+    width: 100%;
+    max-width: 500px;
+    padding: 90px;
+    background: hsl(252, 30%, 100%);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.box-input h2 {
+    position: absolute;
+    left: 40%;
+    right: 40%;
+    top: 22%;
+    font-size: 35px;
+    background-color:  #343C48;
+    color: red;
+    border-radius: 5px;
+    letter-spacing:3px;
+}
+
+.caixas .titulo-caixa{
+    display: flex;
+    justify-content: left;
+}
+
+.caixas input {
+    width: 100%;
+    margin: 12px 0;
+    padding: 15px 20px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.caixas input[type="text"],
+.caixas input[type="date"] {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #333;
+    color: #fff;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.caixas input[type="text"]::placeholder,
+.caixas input[type="date"]::placeholder {
+    color: #888;
+}
+
+.caixas label {
+    display: flex;;
+}
+
+.caixas input[type="radio"] {
+    margin-right: 8px;
+    accent-color: #e50914;
+}
+
+/* main{
+    flex: 1;
+}
+
+.container{
+    display: flex;
+    background-color: aqua;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.caixa-input input{
+    outline: none;
+    padding: 8px;
+    background-color: #f3f3f3;
+} */
+
+footer{
+    background-color: #343C48;
+    padding: 10px 0;
+    width: 100%;
+}
+
+footer .link{
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsivo */
+@media screen and (max-width: 992px) {
+
+    body{
+        height: 100%;
+    }
+
+    main{
+        zoom: 105%;
+    }
+
+    .meio .caixas input {
+        width: 100%;
+        margin: 10px 0px;
+        padding: 15px 20px;
+        border-radius: 10px;
+        background: var(--color-secundary);
+    }
+
+    .meio .botao button{
+        padding: 12px 60px;
+        margin: 4px;
+    }
+
+    .meio .senha i{
+        position: absolute;
+        right: 15px;
+        /* top: 50%; */
+        color: var(--color-black);
+    }
+}
+
+@media screen and (max-width: 700px) {
+
+    main{
+        zoom: calc(30% + 10px);
+    }
+
+    .meio h2 {
+        font-size: 25px;
+    }
+
+    .senha i {
+        position: absolute;
+        right: 15px;
+        /* top: 45%; */
+        color: var(--color-black);
+    }
+
+    .meio .caixas input {
+        padding: 10px 15px;
+    }
+}

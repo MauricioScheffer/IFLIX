@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFLIX</title>
+    <!-- fonte pra tudo -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Audiowide&family=Exo+2:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="cadastro.css">
+    <link rel="shortcut icon" href="" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Lateral Esquerda -->
+        <aside class="barra-lateral">
+            <div class="logo"><a href="index.html" class="logo">i<span>FLIX</span></a></div>
+
+            <div class="movie-search">
+                <img class="lupa" src="search.png" alt="">
+                <input class="barra-pesquisa" type="text" id="movieInput" placeholder="Digite o nome de um filme">
+            </div>
+
+            <div class="menu">
+                <p class="titulo-barraLateral">MENU</p>
+                <a href="index.html"><img src="" alt="" class="icones">Início</a>
+                <a href="login.html"><img src="" alt="" class="icones">Login</a>
+                <a href="cadastro.html"><img src="" alt="" class="icones">Cadastrar</a>
+                <a href="contatos.html"><img src="" alt="" class="icones">Fale Conosco</a>
+
+            </div>
+
+            <div class="generos" id="genreNav">
+                <p class="titulo-barraLateral">GÊNEROS</p>
+                <ul id="genreList"></ul>
+            </div>
+        </aside>
+
+        <!-- Conteúdo principal -->
+        <main class="container-meio">
+            <h2>Cadastro</h2>
+            <div class="containerCad">
+
+                <div class="caixas">
+                    <p class="titulo-caixa">Nome</p>
+                    <input type="text" placeholder="Nome completo">
+                    <p class="titulo-caixa">Data de nascimento</p>
+                    <input type="date" placeholder="Data de nascimento">
+                </div>
+
+                <div class="caixas">
+                    <p class="titulo-caixa">Email</p>
+                    <input type="text" placeholder="Email">
+                    <p class="titulo-caixa">Gênero</p>
+                    <label><input type="radio" name="genero" value="Masculino">Masculino</label>
+                    <label><input type="radio" name="genero" value="Feminino">Feminino</label>
+                    <label><input type="radio" name="genero" value="Prefiro não responder">Prefiro não responder</label>              
+                </div>
+
+                <div class="caixas">
+                    <p class="titulo-caixa">Senha</p>
+                    <input type="text" placeholder="Senha">
+                    <p class="titulo-caixa">Confirmar senha</p>
+                    <input type="text" placeholder="Confirmar senha">
+                    <a href="index.html" class="btn btn-primary">Cadastrar-se</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="cadastro.js"></script>
+</body>
+
+</html>

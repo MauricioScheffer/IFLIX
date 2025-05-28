@@ -4,9 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="filme.css">
   <title>Detalhes do Filme</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Audiowide&family=Exo+2:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap"
+        rel="stylesheet">
 </head>
 
 
@@ -35,9 +40,9 @@
 
     <main class="container-meio" id="movieDetailsContainer">
       <h2 id="movieTitle">Carregando...</h2>
-      <div id="movieDetails" style="display:flex; gap: 20px; margin-top: 20px;">
+      <div id="movieDetails" style="display:flex; gap: 20px; margin-top: 20px; align-items: flex-start;">
 
-        <img id="moviePoster" src="" alt="" style="width: 300px; border-radius: 10px;" />
+        <img id="moviePoster" src="" alt="" style="width: 300px; height: auto; border-radius: 10px;" />
 
         <div id="movieInfo" style="max-width: 600px;">
           <p><strong>Descrição:</strong> <span id="movieOverview"></span></p>
@@ -45,319 +50,18 @@
           <p><strong>Nota média:</strong> <span id="movieRating"></span></p>
           <p><strong>Gêneros:</strong> <span id="movieGenres"></span></p>
           <p><strong>Duração:</strong> <span id="movieDuration"></span> minutos</p>
+
+          <div class="trailer">
+            <h2>Trailer</h2>
+            <iframe src="https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=YOUR_API_KEY&language=pt-BR"
+            width="400px" height="250px" allowfullscreen frameborder="0"></iframe>
+          </div>
         </div>
 
       </div>
     </main>
   </div>
+  <script src="filme.js"></script>
 
-  <script>
-const params = new URLSearchParams(window.location.search);
-const movieId = params.get("id");
-
-if (!movieId) {
-  alert("Nenhum filme selecionado.");
-  window.location.href = "index.html";
-}
-
-fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=1e80412998daf360b634f59f4944b940&language=pt-BR`)
-  .then(res => res.json())
-  .then(movie => {
-    // fundo
-    if(movie.backdrop_path){
-      document.body.style.backgroundImage = `url('https://image.tmdb.org/t/p/original${movie.backdrop_path}')`;
-      document.body.style.backgroundSize = 'cover';
-      document.body.style.backgroundPosition = 'center';
-      document.body.style.backgroundRepeat = 'no-repeat';
-      document.body.style.backdropFilter = 'blur(4px)';
-
-    }
-    document.getElementById("movieTitle").textContent = movie.title;
-    document.getElementById("moviePoster").src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-    document.getElementById("movieOverview").textContent = movie.overview;
-    document.getElementById("movieReleaseDate").textContent = movie.release_date;
-    document.getElementById("movieRating").textContent = movie.vote_average;
-    document.getElementById("movieDuration").textContent = movie.runtime;
-
-    
-
-    const genres = movie.genres.map(g => g.name).join(", ");
-    document.getElementById("movieGenres").textContent = genres;
-  });
-
-  </script>
-  <style>
-    /* FIlme Card */
-.filme-card {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    margin: 10px;
-    width: 200px;
-    transition: transform 0.2s ease;
-  }
-  
-.filme-card:hover {
-    transform: scale(1.05);
-}
-
-#movie-title{
-    
-}
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-    background: #f3f3f3;
-  }
-  
-  .container {
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
-  }
-  
-  .barra-lateral {
-    width: 250px;
-    background-color: #343C48;
-    color: white;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  
-  .logo {
-    font-size: 34px;
-    font-weight: bold;
-    text-align: center;
-    color: #f3f3f3;
-    text-decoration: none;
-  }
-  
-  .logo span {
-    background-image: linear-gradient(to right, red, orange, yellow);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .movie-search {
-    display: flex;
-    align-items: center;
-    margin-top: 20px;
-    background: #272D36;
-    padding: 5px;
-    border-radius: 5px;
-  }
-  
-  .movie-search img {
-    width: 20px;
-    margin-right: 5px;
-  }
-  
-  .barra-pesquisa {
-    flex-grow: 1;
-    border: none;
-    outline: none;
-    padding: 5px;
-    background-color: #272D36;
-    color: #f3f3f3;
-  }
-  
-  .filtros {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-  }
-  
-  .filtro-btn {
-      background-color: #333;
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 5px;
-      cursor: pointer;
-  }
-  
-  .filtro-btn:hover {
-      background-color: #555;
-  }
-  
-  .menu a {
-    display: block;
-    color: white;
-    text-decoration: none;
-    margin: 7px 0;
-    font-size: 16px;
-    background-color: #2E353F;
-    padding: 7px;
-  }
-  
-  .menu .icones {
-    width: 20px;
-    vertical-align: middle;
-    margin-right: 5px;
-  }
-  
-  .titulo-barraLateral{
-    font-size: 10pt;
-  }
-  
-  .generos {
-    flex-grow: 1;
-    overflow-y: auto;
-  }
-  
-  .generos ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-size: 11pt;
-  }
-  
-  #genreNav {
-    margin-top: 20px;
-    color: white;
-  }
-  
-  #genreNav ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  #genreNav li {
-    margin: 8px 0;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-  
-  #genreNav li:hover {
-    color: orange;
-  }
-  
-  #sectionTitle {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
-  
-  #genreList li {
-    margin-bottom: 5px;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 5px;
-    border-bottom: 2px solid #2E353F;
-    transition: background 0.3s, color 0.3s;
-  }
-  
-  #genreList li:hover {
-    background-color: #2d3748;
-  }
-  
-  #genreList li.active {
-    background-color: orange;
-    color: black;
-    font-weight: bold;
-  }
-  
-  .container-meio {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.7); /* fundo escuro translúcido */
-  color: white; /* texto claro para contraste */
-  }
-
-  
-  .titulo-genero {
-    margin-bottom: 20px;
-  }
-  
-  .movie-posters {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 20px;
-  }
-  
-  .movie-card {
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    text-align: center;
-    position: relative;
-    padding-bottom: 10px;
-  }
-  
-  .movie-card img {
-    width: 100%;
-    border-radius: 5px;
-    /* height: 225px;
-    object-fit: cover;
-    display: block; */
-  }
-  
-  .movie-card .title {
-    font-weight: bold;
-    margin: 5px;
-  }
-  
-  .movie-card .year {
-    font-size: 0.9em;
-    color: gray;
-  }
-  
-  .movie-card .rating {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    background: black;
-    color: yellow;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 12px;
-  }
-  
-  .pagination {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 20px 0;
-    gap: 6px;
-  }
-  
-  .pagination button {
-    padding: 6px 12px;
-    border: none;
-    background-color: #333;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .pagination button.active {
-    background-color: #ff3333;
-    font-weight: bold;
-  }
-  
-  .filtro-direita {
-    width: 200px;
-    background: #f5f5f5;
-    border-left: 1px solid #ccc;
-    padding: 20px;
-    overflow-y: auto;      
-  }
-  
-  .buttons button {
-    margin: 5px;
-    padding: 8px 12px;
-    border: none;
-    background: #ddd;
-    cursor: pointer;
-  }
-  
-  </style>
 </body>
-
 </html>
