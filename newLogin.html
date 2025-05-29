@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IFLIX - Login</title>
+
+  <!-- Fontes -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Audiowide&family=Exo+2:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="newLogin.css" />
+  <link rel="shortcut icon" href="" type="image/x-icon" />
+</head>
+
+<body>
+  <div class="container">
+    <!-- Lateral Esquerda -->
+    <aside class="barra-lateral">
+      <div class="logo"><a href="index.html" class="logo">i<span>FLIX</span></a></div>
+
+      <div class="movie-search">
+        <img class="lupa" src="search.png" alt="" />
+        <input class="barra-pesquisa" type="text" id="movieInput" placeholder="Digite o nome de um filme" />
+      </div>
+
+      <div class="menu">
+        <p class="titulo-barraLateral">MENU</p>
+        <a href="index.html"><img src="" alt="" class="icones" />Início</a>
+        <a href="login.html"><img src="" alt="" class="icones" />Login</a>
+        <a href="cadastro.html"><img src="" alt="" class="icones" />Cadastrar</a>
+        <a href="contatos.html"><img src="" alt="" class="icones" />Fale Conosco</a>
+      </div>
+
+      <div class="generos" id="genreNav">
+        <p class="titulo-barraLateral">GÊNEROS</p>
+        <ul id="genreList"></ul>
+      </div>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="container-meio">
+      <h2>Login</h2>
+      <div class="containerCad">
+        <div class="caixas">
+          <p class="titulo-caixa">Email</p>
+          <input type="text" placeholder="Digite seu e-mail" />
+          <p class="titulo-caixa">Senha</p>
+          <input type="password" placeholder="Digite sua senha"/>
+          <a src="index.html" class="btn" type="submit">Entrar</a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="generos.js"></script>
+</body>
+
+</html>
