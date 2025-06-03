@@ -1,60 +1,61 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IFLIX</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="IFSulFLix.svg" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IFLIX - Contatos</title>
+  <link rel="stylesheet" href="CSS/contatos.css">
+  <link rel="shortcut icon" href="IFSulFLix.svg" type="image/x-icon">
 
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Audiowide&family=Exo+2:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <!-- Lateral Esquerda -->
-        <aside class="barra-lateral">
-            <div class="logo">I<span>FLIX</span></div>
+  <div class="container">
+    <!-- Lateral Esquerda -->
+    <aside class="barra-lateral">
+      <div class="logo"><a href="index.html" class="logo">I<span>FLIX</span></a></div>
 
-            <div class="movie-search">
-                <img class="lupa" src="search.png" alt="">
-                <input class="barra-pesquisa" type="text" id="movieInput" placeholder="Digite o nome de um filme">
-            </div>
+      <div class="menu">
+        <p class="titulo-barraLateral">MENU</p>
+        <a href="index.html"><img src="" alt="" class="icones">Início</a>
+        <a href="login.html"><img src="" alt="" class="icones">Login</a>
+        <a href="cadastro.html"><img src="" alt="" class="icones">Cadastrar</a>
+        <a href="contatos.html"><img src="" alt="" class="icones">Fale Conosco</a>
+      </div>
 
-            <div class="menu">
-                <p class="titulo-barraLateral">MENU</p>
-                <a href="index.html"><img src="" alt="" class="icones">Início</a>
-                <a href="login.html"><img src="" alt="" class="icones">Login</a>
-                <a href="cadastro.html"><img src="" alt="" class="icones">Cadastrar</a>
-                <a href="contatos.html"><img src="" alt="" class="icones">Fale Conosco</a>
-                
-            </div>
+      <div class="generos" id="genreNav">
+        <p class="titulo-barraLateral">GÊNEROS</p>
+        <ul id="genreList"></ul>
+      </div>
+    </aside>
 
-            <div class="generos" id="genreNav">
-                <p class="titulo-barraLateral">GÊNEROS</p>
-                <ul id="genreList"></ul>
-            </div>
-        </aside>
+    <!-- Conteúdo Principal -->
+    <main class="container-meio">
+      <h1 id="contato">Fale Conosco</h1>
 
-        <!-- Conteúdo principal -->
-        <main class="container-meio">
-            <h1 id="contato">Contatos</h1>
+      <section>
+        <h3>E-mails</h3>
+        <p class="email">Maurício Schefer - <a href="mailto:mauriciossilveira.ss017@academico.ifsul.edu.br">mauriciossilveira.ss017@academico.ifsul.edu.br</a></p>
+        <p class="email">Ismael Machado - <a href="mailto:ismaelmachado.ss038@academico.ifsul.edu.br">ismaelmachado.ss038@academico.ifsul.edu.br</a></p>
+      </section>
 
-            <h3>E-mails</h3>
-            <p class="email">Maurício Schefer - mauriciossilveira.ss017@academico.ifsul.edu.br</p>
-            <p class="email">Ismael Machado - ismaelmachado.ss038@@academico.ifsul.edu.br</p>
+      <section>
+        <h3>LinkedIn</h3>
+        <p><a href="https://www.linkedin.com/in/maur%C3%ADcio-scheffer-silveira-95b972279" target="_blank">Maurício Scheffer</a></p>
+        <p><a href="https://www.linkedin.com/in/ismaelcostamachado" target="_blank">Ismael Machado</a></p>
+      </section>
 
-            <h3>Linkedin</h3>
-            <p>Maurício Scheffer</p>
-            <a href="https://www.linkedin.com/in/maur%C3%ADcio-scheffer-silveira-95b972279"></a>
+      <section>
+        <h3>IFSul - Campus Sapucaia do Sul</h3>
+        <p>Site: <a href="https://www.sapucaia.ifsul.edu.br/portal/" target="_blank">https://www.sapucaia.ifsul.edu.br/</a></p>
+      </section>
+    </main>
+  </div>
 
-            <p>Ismael Machado</p>
-            <a href="https://www.linkedin.com/in/ismaelcostamachado"></a>
-
-            <h3>IFSul - Campus Sapucaia do Sul</h3>
-            <p>Site:<br></p><a href="https://www.sapucaia.ifsul.edu.br/portal/"></a>
-        </main>
-
-    </div>
-    
+  <script src="JS/contatos.js"></script>
 </body>
 </html>
