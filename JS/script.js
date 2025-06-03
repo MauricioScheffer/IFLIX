@@ -315,3 +315,13 @@ function mudarPagina(novaPagina) {
 
 // let isLoading = false;
 
+const toggleButton = document.getElementById('menu-toggle');
+const sidebar = document.querySelector('.sidebar');
+toggleButton.addEventListener('click', () => {
+  sidebar.classList.toggle('open');
+});
+
+  // document.getElementById('menu-toggle').addEventListener('click', function () {
+  //   const sidebar = document.querySelector('.barra-lateral');
+  //   sidebar.classList.toggle('open');
+  // });
