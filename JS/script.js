@@ -47,7 +47,7 @@ function fetchMovies() {
       movies.forEach(movie => {
         const movieElement = document.createElement("a");
         movieElement.href = `filme.html?id=${movie.id}`;
-        movieElement.classList.add("card-filme"); // Você pode estilizar isso no CSS
+        movieElement.classList.add("card-filme"); // estilizar isso no CSS
 
         movieElement.innerHTML = `
           <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
@@ -117,10 +117,10 @@ input.addEventListener("input", () => {
   carregarFilmesPesquisa(query, currentPage);
 });
 
-// Carrega filmes iniciais
-window.addEventListener("DOMContentLoaded", () => {
-  carregarFilmes("popular", "Filmes em destaque");
-});
+// // Carrega filmes iniciais (tirei porque já executei essa função)
+// window.addEventListener("DOMContentLoaded", () => {
+//   carregarFilmes("popular", "Filmes em destaque");
+// });
 
 // Filtros: Mais assistidos e Novos
 document.querySelectorAll(".filtro-btn").forEach(btn => {
@@ -290,3 +290,28 @@ function mudarPagina(novaPagina) {
     carregarFilmesPorGenero(activeGenre, currentPage);
   }
 }
+
+// Não vou precisar
+// window.addEventListener("scroll", () => {
+//   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+//   if (scrollTop + clientHeight >= scrollHeight - 100) {
+//     if (currentPage < totalPages && !isLoading) {
+//       currentPage++;
+//       isLoading = true;
+
+//       if (currentMode === "default") {
+//         carregarFilmes(currentFilter, sectionTitle.textContent);
+//       } else if (currentMode === "search") {
+//         carregarFilmesPesquisa(currentQuery, currentPage);
+//       } else if (currentMode === "genre") {
+//         carregarFilmesPorGenero(activeGenre, currentPage);
+//       }
+
+//       setTimeout(() => isLoading = false, 1000); // pequena pausa pra evitar múltiplas requisições
+//     }
+//   }
+// });
+
+// let isLoading = false;
+
