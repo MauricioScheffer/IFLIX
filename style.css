@@ -1,21 +1,25 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   background: #f3f3f3;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
 }
 
 .container {
   display: flex;
-  height: 100vh;
+  /* flex-direction: column; */
+  max-height: 100vh;
   overflow: hidden;
 }
 
@@ -56,37 +60,6 @@ h1, h2 {
   color: #f3f3f3;
 }
 
-/* Exo2 
-.logo {
-  font-family: "Exo 2", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-}*/
-
-/* Orbitron 
-.orbitron-<uniquifier> {
-  font-family: "Orbitron", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-}*/
-
-/* anton 
-.anton-regular {
-  font-family: "Anton", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-*/
-/* Audio Wide */
-/* .logo {
-  font-family: "Audiowide", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-} */
-
-
 .logo span {
   /* background-image: linear-gradient(to right, red, orange, yellow); */
   background-image: radial-gradient(rgb(250, 92, 92), rgb(255, 44, 44), red);
@@ -103,11 +76,6 @@ h1, h2 {
   border-radius: 5px;
 }
 
-.movie-search img {
-  width: 20px;
-  margin-right: 5px;
-}
-
 .barra-pesquisa {
   flex-grow: 1;
   border: none;
@@ -115,30 +83,28 @@ h1, h2 {
   padding: 5px;
   background-color: #f3f3f3;
   color: #272D36;
-  /* background-color: #272D36;
-    color: #f3f3f3; */
 }
 
 .filtros {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .filtro-btn {
-    background-color: #333;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .filtro-btn:hover {
-    background-color: #555;
+  background-color: #555;
 }
 
-.menu{
+.menu {
   margin-top: 15px;
   border-radius: 5px;
   background-color: #272D36;
@@ -167,7 +133,7 @@ h1, h2 {
   margin-right: 5px;
 }
 
-.titulo-barraLateral{
+.titulo-barraLateral {
   background-color: red;
   color: #f3f3f3;
   text-align: center;
@@ -179,14 +145,17 @@ h1, h2 {
 
 .generos {
   flex-grow: 1;
-  overflow-y: auto;
   margin-top: 15px;
   border-radius: 5px;
   background-color: #272D36;
   padding: 6px;
+  overflow-x: hidden;
 }
 
 .generos ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -275,7 +244,7 @@ h1, h2 {
   transform: scale(1.05);
 }
 
-.movie-card h3{
+.movie-card h3 {
   font-size: 14px;
   margin-top: 6px;
   white-space: nowrap;
@@ -301,7 +270,7 @@ h1, h2 {
 }
 
 
-
+/* Tipo netflix */
 /* .movie-card {
   background: white;
   border-radius: 8px;
@@ -368,7 +337,7 @@ h1, h2 {
   background: #f5f5f5;
   border-left: 1px solid #ccc;
   padding: 20px;
-  overflow-y: auto;      
+  overflow-y: auto;
 }
 
 .buttons button {
@@ -379,29 +348,74 @@ h1, h2 {
   cursor: pointer;
 }
 
-/* Versão mobile - oculta o menu inicialmente */
 @media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
+  .container {
+    flex-direction: column;
+    overflow: visible;
   }
 
   .barra-lateral {
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 250px;
-    background-color: #111;
-    transform: translateX(-100%);
-    z-index: 1000;
-  }
-
-  .barra-lateral.open {
+    width: 100%;
+    height: auto;
+    position: relative;
     transform: translateX(0);
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 10px;
+    overflow-x: auto;
   }
 
-  main {
-    margin-left: 0 !important; /* Evita deslocamento em mobile */
+  .movie-search {
+    flex: 1 1 100%;
+    margin-top: 10px;
+  }
+
+  .generos {
+    height: 50px;
+    width: 400px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 0;
+  }
+
+  .generos ul {
+    display: inline-flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .generos ul li {
+    flex: 0 0 auto;
+  }
+
+  .menu,
+  .generos {
+    background-color: transparent;
+    padding: 0;
+    margin-top: 10px;
+    flex: 1 1 auto;
+  }
+
+  .menu a {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 14px;
+    align-items: center;
+  }
+
+  .titulo-barraLateral {
+    display: none;
+  }
+
+  .container-meio {
+    padding: 10px;
+  }
+
+  /* Evita a altura fixa */
+  html,
+  body {
+    overflow: auto;
+    height: auto;
   }
 }
-
