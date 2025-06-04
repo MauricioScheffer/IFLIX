@@ -23,8 +23,9 @@
 <body>
     <div class="container">
         <!-- Lateral Esquerda -->
-         <button id="menu-toggle" class="menu-toggle"></button>
-        <aside class="barra-lateral">
+         <!-- <button id="menu-toggle" class="menu-toggle">&#9776;</button> -->
+
+        <header class="barra-lateral">
             <div class="logo"><a href="index.html" class="logo">i<span>FLIX</span></a></div>
 
             <div class="movie-search">
@@ -32,20 +33,19 @@
                 <input class="barra-pesquisa" type="text" id="movieInput" placeholder="Digite o nome de um filme">
             </div>
 
-            <div class="menu">
+            <nav class="menu">
                 <p class="titulo-barraLateral">MENU</p>
                 <a href="index.html"><img src="claquete.png" alt="" class="icones">Início</a>
                 <a href="login.html"><img src="loginKey.png" alt="" class="icones">Login</a>
                 <a href="cadastro.html"><img src="cadastro.png" alt="" class="icones">Cadastrar</a>
                 <a href="contatos.html"><img src="cadastro.png" alt="" class="icones">Fale Conosco</a>
-
-            </div>
+            </nav>
 
             <div class="generos" id="genreNav">
                 <p class="titulo-barraLateral">GÊNEROS</p>
                 <ul id="genreList"></ul>
             </div>
-        </aside>
+        </header>
 
         <!-- Conteúdo principal -->
         <main class="container-meio">
@@ -76,16 +76,6 @@
 
 
         </main>
-
-        <!-- Lateral Direita -->
-        <!-- <aside class="filtro-direita">
-            <h3>ANO DE LANÇAMENTO</h3>
-            <div class="buttons">
-                <button>2025</button>
-                <button>2024</button>
-                <button>2023</button>
-            </div>
-        </aside> -->
     </div>
 
     <script src="JS/script.js"></script>
