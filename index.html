@@ -22,10 +22,8 @@
 
 <body>
     <div class="container">
-        <!-- Lateral Esquerda -->
-         <!-- <button id="menu-toggle" class="menu-toggle">&#9776;</button> -->
 
-        <header class="barra-lateral">
+        <div class="barra-lateral">
             <div class="logo"><a href="index.html" class="logo">i<span>FLIX</span></a></div>
 
             <div class="movie-search">
@@ -45,10 +43,10 @@
                 <p class="titulo-barraLateral">GÊNEROS</p>
                 <ul id="genreList"></ul>
             </div>
-        </header>
+        </div>
 
         <!-- Conteúdo principal -->
-        <main class="container-meio">
+        <div class="container-meio">
             <h2 id="sectionTitle">Filmes em destaque</h2>
             <div class="filtros">
                 <button class="filtro-btn" data-filter="popular">Mais assistidos</button>
@@ -60,13 +58,12 @@
             <div class="pagination" id="paginationTop"></div>
             <div id="loadingSpinner" class="spinner" style="display: none;"></div>
 
-            <!-- Área dos filmes -->
             <div class="movie-posters" id="posterContainer">
                 <h1 class="titulo-genero">Resultados da Busca</h1>
 
                 <!-- Carregamendo em loading -->
 
-                <a href="filme.html?id=12345"> <!-- 12345 é o ID do filme -->
+                <a href="filme.html?id=12345"> <!-- ID do filme -->
                     <!-- conteúdo do card -->
                 </a>
             </div>
@@ -75,7 +72,7 @@
             <div class="pagination" id="paginationBottom"></div>
 
 
-        </main>
+        </div>
     </div>
 
     <script src="JS/script.js"></script>

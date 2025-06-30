@@ -1,5 +1,6 @@
 const apiKey = "1e80412998daf360b634f59f4944b940";
 const posterContainer = document.getElementById("posterContainer");
+
 const genreList = document.getElementById("genreList");
 const sectionTitle = document.getElementById("sectionTitle");
 const input = document.getElementById("movieInput");
@@ -32,8 +33,6 @@ window.addEventListener("DOMContentLoaded", () => {
     carregarFilmes("popular", "Filmes em destaque");
   }
 });
-
-
 
 
 function fetchMovies() {
